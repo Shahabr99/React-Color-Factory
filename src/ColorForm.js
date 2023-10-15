@@ -1,17 +1,25 @@
-import React, { useState } from 'react';
+import React from 'react';
+import {Link} from 'react-router-dom';
 
-const ColorForm = () => {
-  const [color, setColors] = useState([])
 
-  handleForm() {
-    
+const ColorForm = ({newColor, colors, setColors, setNewColor}) => {
+
+  function changeData(e) {
+    setNewColor(e.target.value)
+  }
+  
+  function handleForm(e) {
+    e.preventDefault();
+    if(newColor.trim() !== '') {
+    setColors(prevColors => [...prevColors, newColor])
+    setNewColor('')
+    }
   }
 
   return (
     <form onSubmit={handleForm}>
-      <input type="text" onChange={() => changeData} />
-      <input type="text" onChange={() => changeData} />
-      <button>Add Color</button>
+      <input type="text" value={newColor} onChange={changeData} />
+      <button type="submit" ><Link to="/colors">Add Color</Link></button>
     </form>
   )
 }
